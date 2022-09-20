@@ -3,7 +3,6 @@ const router = Router();
 const {user} = require('../controllers/user.controller')
 const authMiddleware = require("../middleware/auth.middleware")
 
-
 router.get('/users', user.getStudents)
 
 router.post('/login', user.login)
