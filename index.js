@@ -12,11 +12,11 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 app.use("/public",express.static(path.resolve(__dirname, "public")));
 
-app.use(require('./routes/image.route'))
+// app.use(require('./routes/image.route'))
 app.use(require('./routes/user.route'))
 
 app.use(require("./routes/order.route"))
-
+app.use(require("./routes/category.route"))
 mongoose
   .connect(process.env.MONGO_SERVER)
   .then(() => console.log("mongoose connect"))
