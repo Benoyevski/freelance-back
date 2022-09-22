@@ -7,9 +7,9 @@ module.exports.orderController = {
     },
 
     addOrder :async (req,res)=>{
-        const {categoryId,creator,price,text,workTime}= req.body
+        const {categoryId,creator,price,text,workTime,title}= req.body
         const data = await Order.create({
-            categoryId,creator,price,text,workTime
+            categoryId,creator,price,text,workTime,title
 
         })
         return res.json(data)

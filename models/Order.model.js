@@ -13,6 +13,7 @@ const orderSchema = mongoose.Schema({
 
   text: String,
   workTime: String,
+  title:String,
 
   createAt: {
     type: Date,
