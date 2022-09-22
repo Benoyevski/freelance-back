@@ -49,7 +49,9 @@ module.exports.orderController = {
     const user = await User.findById(req.body.user);
     const order = await Order.findById(req.params.id);
     try {
-      if (order.freelancers.find((item) => String(item) == user._id)) {
+      if (String(order.creator) === String(user._id)) {
+        return res.json("Выберите исполнителя для своего задания");
+      } else if (order.freelancers.find((item) => String(item) == user._id)) {
         return res.json(
           "Вы уже отозвались на это задание. Дождитесь пока заказчик примет вашу заявку"
         );
@@ -57,7 +59,6 @@ module.exports.orderController = {
       await order.updateOne({ $addToSet: { freelancers: user._id } });
       await user.updateOne({ $addToSet: { followOrders: order._id } });
       res.json(order);
-      console.log(order);
     } catch (error) {
       res.json(error + "Ошибка при подписке");
     }
