@@ -17,7 +17,10 @@ const userSchema = mongoose.Schema({
         type: mongoose.SchemaTypes.ObjectId,
         ref: "Order"
     }],
-    wallet: Number,
+    wallet: {
+        type:Number,
+        default:0
+    },
 })
 
 const User = mongoose.model('User', userSchema)

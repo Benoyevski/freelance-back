@@ -6,31 +6,19 @@ module.exports.orderController = {
     res.json(data);
   },
 
-  addOrder: async (req, res) => {
-    const {
-      categoryId,
-      creator,
-      price,
-      text,
-      workTime,
-      freelancers,
-      accepted,
-    } = req.body;
-    const data = await Order.create({
-      categoryId,
-      creator,
-      price,
-      text,
-      workTime,
-      freelancers,
-      accepted,
-    });
-    return res.json(data);
-  },
   deleteOrder: async (req, res) => {
     const data = await Order.findByIdAndDelete(req.params.id);
     return res.json("Удален");
   },
+
+    addOrder :async (req,res)=>{
+        const {categoryId,creator,price,text,workTime,title}= req.body
+        const data = await Order.create({
+            categoryId,creator,price,text,workTime,title
+              });
+            return res.json(data);
+          },
+
 
   patchOrder: async (req, res) => {
     const { categoryId, creator, price, text, workTime } = req.body;
