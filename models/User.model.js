@@ -11,7 +11,10 @@ const userSchema = mongoose.Schema({
     login: String,
     password: String,
 
-    wallet: Number,
+    wallet: {
+        type:Number,
+        default:0
+    },
 })
 
 const User = mongoose.model('User', userSchema)
