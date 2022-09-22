@@ -14,6 +14,7 @@ const orderSchema = mongoose.Schema({
   text: String,
   workTime: String,
   title:String,
+  location:String,
 
   createAt: {
     type: Date,
