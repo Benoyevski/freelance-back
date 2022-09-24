@@ -11,18 +11,17 @@ module.exports.orderController = {
     return res.json("Удален");
   },
 
-  addOrder: async (req, res) => {
-    const { categoryId, creator, price, text, workTime, title } = req.body;
-    const data = await Order.create({
-      categoryId,
-      creator,
-      price,
-      text,
-      workTime,
-      title,
-    });
-    return res.json(data);
-  },
+
+    addOrder :async (req,res)=>{
+        const {categoryId,creator,price,text,workTime,title,location}= req.body
+        const data = await Order.create({
+            categoryId,creator,price,text,workTime,title,location
+              });
+            return res.json(data);
+          },
+
+
+
 
   patchOrder: async (req, res) => {
     const { categoryId, creator, price, text, workTime } = req.body;
