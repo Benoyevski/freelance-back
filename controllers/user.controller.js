@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 
 module.exports.user = {
   getStudents: async (req, res) => {
-    const data = await User.find({});
+    const data = await User.find({}).populate('followOrders acceptOrders');
     res.json(data);
   },
 
