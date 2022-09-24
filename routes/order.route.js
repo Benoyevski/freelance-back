@@ -6,9 +6,10 @@ router.get("/order", orderController.getOrder);
 
 router.post("/order", orderController.addOrder);
 
-router.patch("/order/:id", orderController.patchOrder);
 router.delete("/order/:id", orderController.deleteOrder);
 
+router.patch("/order/:id", orderController.patchOrder);
 router.patch("/followOrder/:id", orderController.followOrder);
+router.patch('/unFollow/:id', orderController.unFollow)
 
 module.exports = router;

@@ -11,14 +11,18 @@ module.exports.orderController = {
     return res.json("Удален");
   },
 
-    addOrder :async (req,res)=>{
-        const {categoryId,creator,price,text,workTime,title}= req.body
-        const data = await Order.create({
-            categoryId,creator,price,text,workTime,title
-              });
-            return res.json(data);
-          },
-
+  addOrder: async (req, res) => {
+    const { categoryId, creator, price, text, workTime, title } = req.body;
+    const data = await Order.create({
+      categoryId,
+      creator,
+      price,
+      text,
+      workTime,
+      title,
+    });
+    return res.json(data);
+  },
 
   patchOrder: async (req, res) => {
     const { categoryId, creator, price, text, workTime } = req.body;
@@ -46,7 +50,21 @@ module.exports.orderController = {
       }
       await order.updateOne({ $addToSet: { freelancers: user._id } });
       await user.updateOne({ $addToSet: { followOrders: order._id } });
-      res.json(order);
+      res.json(user);
+    } catch (error) {
+      res.json(error + "Ошибка при подписке");
+    }
+  },
+
+// удалить подписку на задание
+
+  unFollow: async (req, res) => {
+    const user = await User.findById(req.body.user);
+    const order = await Order.findById(req.params.id);
+    try {
+      await order.updateOne({ $pull: { freelancers: user._id } });
+      await user.updateOne({ $pull: { followOrders: order._id } });
+      res.json(user);
     } catch (error) {
       res.json(error + "Ошибка при подписке");
     }
