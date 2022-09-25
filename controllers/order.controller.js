@@ -2,7 +2,7 @@ const Order = require("../models/Order.model");
 const User = require("../models/User.model");
 module.exports.orderController = {
   getOrder: async (req, res) => {
-    const data = await Order.find({}).populate("freelancers accepted");
+    const data = await Order.find().populate("freelancers accepted");
     res.json(data);
   },
 
@@ -66,9 +66,29 @@ module.exports.orderController = {
     try {
       await order.updateOne({ $pull: { freelancers: user._id } });
       await user.updateOne({ $pull: { followOrders: order._id } });
-      res.json({user, order});
+      res.json({ user, order });
     } catch (error) {
       res.json(error + "Ошибка при подписке");
+    }
+  },
+
+  // Принять заявку на свое задание
+
+  accept: async (req, res) => {
+    const user = await User.findById(req.body.user);
+    const order = await Order.findById(req.params.id);
+    try {
+      await order.update({
+        $addToSet: { accepted: user._id },
+        $set: { freelancers: [] },
+      });
+      await user.update({
+        $addToSet: { acceptOrders: order._id },
+        $pull: { followOrders: order._id },
+      });
+      res.json({ user, order });
+    } catch (error) {
+      res.json(error + "Ошибка при принятии подписки");
     }
   },
 };
