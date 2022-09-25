@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 
 module.exports.user = {
   getStudents: async (req, res) => {
-    const data = await User.find({}).populate('followOrders acceptOrders');
+    const data = await User.find().populate("followOrders acceptOrders");
     res.json(data);
   },
 
@@ -35,7 +35,6 @@ module.exports.user = {
       const { login, password } = req.body;
       const hash = await bcrypt.hash(password, 7);
       const user = await User.create({
-
         role: req.body.role,
         name: req.body.name,
         surname: req.body.surname,
@@ -52,11 +51,11 @@ module.exports.user = {
   },
 
   updateStudent: async (req, res) => {
-    const data = await User.findByIdAndUpdate(req.params.id, req.body)
-    res.json(data)
+    const data = await User.findByIdAndUpdate(req.params.id, req.body);
+    res.json(data);
   },
   deleteStudent: async (req, res) => {
-    const data = await User.findByIdAndDelete(req.params.id)
-    res.json(data)
+    const data = await User.findByIdAndDelete(req.params.id);
+    res.json(data);
   },
 };
