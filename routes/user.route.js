@@ -9,6 +9,7 @@ router.post("/login", user.login);
 router.post("/auth", user.auth);
 
 router.patch("/user/:id", user.updateStudent);
+router.patch("/users/changeprice/:id", user.chanPrice);
 router.delete("/user/:id", user.deleteStudent);
 
 module.exports = router;

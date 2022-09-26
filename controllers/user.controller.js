@@ -58,4 +58,24 @@ module.exports.user = {
     const data = await User.findByIdAndDelete(req.params.id);
     res.json(data);
   },
+  chanPrice: async (req, res) => {
+    const user = await User.findById(req.body.user);
+    const userorder = await User.findById(req.params.id);
+    console.log(user,userorder,user.wallet,req.body.price)
+    try {
+      let summa =   Number(userorder.wallet) - Number(req.body.price)
+     const data = await User.findByIdAndUpdate(req.params.id,{
+      $set:{wallet: Number(summa)}
+     })
+
+     let summa2 = Number(user.wallet) + Number(req.body.price)
+     await User.findByIdAndUpdate(req.body.user,{
+      $set:{wallet: Number(summa2)}
+     })
+      await res.json("Все ок");
+    } catch (error) {
+      res.json(error + "Ошибка при подписке");
+    }
+  },
+
 };
